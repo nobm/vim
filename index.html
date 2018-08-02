@@ -5,43 +5,48 @@
   <meta charset="utf-8" />
   <title>Demo</title>
   <link rel="vue" href="components/button-counter.vue">
-  <link rel="vue" href="pages/foo.vue">
-  <link rel="vue" href="pages/bar.vue">
+  <link rel="vue" href="components/button-counter.vue" name="button-counter-alias">
+  <style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Yu Gothic", YuGothic; }
+  </style>
 </head>
 
 <body>
 
   <div id="app">
+    <h1>VueImporter Demo</h1>
 
-    <h1>VueImports Demo</h1>
-    <p>
+    <div>
+      <button-counter></button-counter>
+      <button-counter-alias></button-counter-alias>
+    </div>
+
+    <div>
       <router-link to="/foo">Go to Foo</router-link>
       <router-link to="/bar">Go to Bar</router-link>
-    </p>
+    </div>
 
     <router-view></router-view>
-
-    <button-counter></button-counter>
-    <button-counter></button-counter>
   </div>
 
   <script src="lib/vue.js"></script>
   <script src="lib/vue-router.js"></script>
-  <script src="lib/vue-imports.js"></script>
+  <script src="lib/vue-importer.js"></script>
+
   <script>
-    document.addEventListener("VueImportsLoaded", function () {
+    const Foo = require("components/foo.vue")
+    const Bar = require("components/bar.vue")
 
-      const router = new VueRouter({
-        routes: [
-          { path: '/foo', component: document.vue.foo },
-          { path: '/bar', component: document.vue.bar }
-        ]
-      })
+    const router = new VueRouter({
+      routes: [
+        { path: '/foo', component: Foo },
+        { path: '/bar', component: Bar }
+      ]
+    })
 
-      const app = new Vue({
-        router
-      }).$mount('#app')
-
+    const app = new Vue({
+      el: "#app",
+      router
     })
   </script>
 

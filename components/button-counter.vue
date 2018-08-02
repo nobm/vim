@@ -12,7 +12,7 @@ module.exports = {
 }
 </script>
 
-<style>
+<style scoped>
 .button {
     color: green;
 }
